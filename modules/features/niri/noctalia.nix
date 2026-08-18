@@ -5,7 +5,7 @@
   ...
 }: {
   # ==========================================
-  # CONFIGURAÇÕES DA NOCTALIA SHELL VIA HOME MANAGER
+  # CONFIGURAÇÕES DA NOCTALIA SHELL (v4 + v5) VIA HOME MANAGER
   # ==========================================
   home-manager = {
     useGlobalPkgs = true;
@@ -16,39 +16,31 @@
     users.leonardo = {config, ...}: {
       home.stateVersion = "24.11";
 
-      # Link simbólico dinâmico da pasta de configurações e temas da Noctalia
+      # Mapeia a pasta de configurações para ~/.config/noctalia
+      # (Onde v4 lê os arquivos .json e v5 lê os arquivos .toml sem conflito)
       xdg.configFile."noctalia" = {
         source = config.lib.file.mkOutOfStoreSymlink "/home/leonardo/MyNixOs/modules/features/niri/cfg_noctalia";
         force = true;
       };
 
-      # Link de compatibilidade caso a v4 busque por ~/.config/noctalia-shell
-      xdg.configFile."noctalia-shell" = {
-        source = config.lib.file.mkOutOfStoreSymlink "/home/leonardo/MyNixOs/modules/features/niri/cfg_noctalia";
-        force = true;
-      };
-
-      # Pacotes e executáveis da Noctalia Shell
-      home.packages = [
-        # Noctalia v4 oficial do Nixpkgs (Comando: noctalia-shell)
-        pkgs.noctalia-shell
-
-        # Wrapper para testes da Noctalia v5 (Comando: noctalia-v5)
-        (pkgs.writeShellScriptBin "noctalia-v5" ''
-          exec ${inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default}/bin/noctalia "$@"
-        '')
-
-        # Compilador CSS necessário para renderizar temas de widgets
-        pkgs.dart-sass
-
-        # Dependência para geração dinâmica de cores baseada no papel de parede
-        pkgs.matugen
-      ];
-      # Força o Equibop a rodar em Wayland nativo para liberar a transmissão de tela
+      # Flags do Equibop para Wayland nativo
       xdg.configFile."equibop-flags.conf".text = ''
         --ozone-platform=wayland
         --enable-features=WaylandWindowDecorations
       '';
+
+      # Instala os executáveis de ambas as versões no $PATH do usuário
+      home.packages = [
+        # Noctalia v4 oficial do Nixpkgs (Comando: 'noctalia-shell')
+        pkgs.noctalia-shell
+
+        # Noctalia v5 oficial vinda do Flake (Comando: 'noctalia')
+        inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
+
+        # Ferramentas auxiliares de temas e CSS
+        pkgs.dart-sass
+        pkgs.matugen
+      ];
     };
   };
 }

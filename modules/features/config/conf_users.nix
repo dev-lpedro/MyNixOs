@@ -49,22 +49,14 @@
     gtk = {
       enable = true;
       gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
+
       theme = {
-        name = "adw-gtk3-dark"; # Tema base de fallback para quando o Noctalia não estiver ativo
+        name = "adw-gtk3-dark";
         package = pkgs.adw-gtk3;
       };
-      gtk3 = {
-        extraConfig.gtk-application-prefer-dark-theme = 1;
-        extraCss = ''
-          @import url("file:///home/leonardo/.config/gtk-3.0/noctalia.css");
-        '';
-      };
-      gtk4 = {
-        extraConfig.gtk-application-prefer-dark-theme = 1;
-        extraCss = ''
-          @import url("file:///home/leonardo/.config/gtk-4.0/noctalia.css");
-        '';
-      };
+
+      gtk3.extraConfig.gtk-application-prefer-dark-theme = 1;
+      gtk4.extraConfig.gtk-application-prefer-dark-theme = 1;
     };
 
     #Preferir tema escuro em apps qt

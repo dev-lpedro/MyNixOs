@@ -5,6 +5,31 @@
   ...
 }: {
   # ==========================================
+  # SESSÕES CUSTOMIZADAS DO NIRI PARA O SDDM
+  # ==========================================
+  services.displayManager.sessionPackages = [
+    # Sessão 1: Niri + Noctalia v4
+    ((pkgs.writeTextDir "share/wayland-sessions/niri-v4.desktop" ''
+      [Desktop Entry]
+      Name=Niri (Noctalia v4)
+      Comment=Niri compositor com Noctalia Shell v4
+      Exec=env NOCTALIA_VER=v4 niri
+      Type=Application
+      DesktopNames=Niri
+    '').overrideAttrs (_: {passthru.providedSessions = ["niri-v4"];}))
+
+    # Sessão 2: Niri + Noctalia v5
+    ((pkgs.writeTextDir "share/wayland-sessions/niri-v5.desktop" ''
+      [Desktop Entry]
+      Name=Niri (Noctalia v5)
+      Comment=Niri compositor com Noctalia Shell v5
+      Exec=env NOCTALIA_VER=v5 niri
+      Type=Application
+      DesktopNames=Niri
+    '').overrideAttrs (_: {passthru.providedSessions = ["niri-v5"];}))
+  ];
+
+  # ==========================================
   # CONFIGURAÇÕES DO COMPOSITOR NIRI VIA HOME MANAGER
   # ==========================================
   home-manager = {

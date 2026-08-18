@@ -75,12 +75,20 @@
   # Servidores de DNS públicos resilientes para garantir conectividade na VM e no host
   networking.nameservers = ["1.1.1.1" "8.8.8.8"];
 
+  #VPN
+  services.zerotierone.enable = true;
+  #configurar sistema de secrets depois
+
+  #Warp
+  services.cloudflare-warp.enable = true;
+
   # ==========================================
   # MODO ESCURO GLOBAL DO SISTEMA
   # ==========================================
   programs.dconf = {
     enable = true;
-    profiles.user.databases = [
+    /*
+      profiles.user.databases = [
       {
         settings = {
           "org/gnome/desktop/interface" = {
@@ -90,6 +98,7 @@
         };
       }
     ];
+    */
   };
 
   # ==========================================
@@ -151,6 +160,10 @@
       icu
       openssl
       glib
+
+      qt5.qtbase
+      qt5.qtsvg
+      qt6.qtbase
     ];
   };
 

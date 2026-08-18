@@ -25,5 +25,23 @@
     clonehero
 
     dusklight
+
+    olympus
+
+    kdePackages.filelight
+
+    bottles
+
+    kdePackages.kdeconnect-kde
+
+    localsend
+
+    #cloudflare-cli
+
+    godot-mono
+
+    libresprite
+
+    dotnetCorePackages.sdk_8_0
   ];
 }
