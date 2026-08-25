@@ -1,6 +1,6 @@
 {pkgs, ...}: {
   environment.systemPackages = with pkgs; [
-    vscode
+    #vscode
     #netbeans
     #dbeaver-bin
     #mysql-workbench

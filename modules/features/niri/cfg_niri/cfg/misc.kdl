@@ -16,11 +16,15 @@
         xcursor-size 24
     }
 
+    // BLOCO DE DEBUG
     debug {
-        // Allows notification actions and window activation from Noctalia.
+        // Permite ações de notificação e ativação de janelas pelo Noctalia
         honor-xdg-activation-with-invalid-serial
+
+        // Corrige a negociação do PipeWire/WebRTC no Google Meet, GoLive e navegadores
+        force-pipewire-invalid-modifier
     }
 
     hotkey-overlay {
-       skip-at-startup
+    skip-at-startup
     }

@@ -1,7 +1,11 @@
 # ==============================================================================
 # Configuração de Jogos, Desempenho e Emuladores
 # ==============================================================================
-{pkgs, ...}: {
+{
+  pkgs,
+  inputs,
+  ...
+}: {
   # Pacotes de jogos, utilitários e monitoramento
   environment.systemPackages = with pkgs; [
     # Performance, HUD e Gravador
@@ -31,6 +35,7 @@
     # Injeta a versão mais recente do GE-Proton na Steam
     extraCompatPackages = with pkgs; [
       proton-ge-bin
+      # inputs.nix-proton-cachyos.packages.${pkgs.stdenv.hostPlatform.system}.proton-cachyos
     ];
   };
 }

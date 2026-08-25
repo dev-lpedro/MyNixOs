@@ -43,5 +43,24 @@
     libresprite
 
     dotnetCorePackages.sdk_8_0
+
+    kdePackages.plasma-nm
+
+    networkmanagerapplet
+
+    melonDS
+
+    proton-vpn
+
+    vopono
+
+    wireguard-tools
+
+    wireproxy
+
+    moonlight-qt
   ];
+
+  services.tailscale.enable = true;
+  services.sunshine.enable = true;
 }

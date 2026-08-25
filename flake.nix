@@ -41,6 +41,14 @@
     };
     */
 
+    # Repositório oficial do Proton-CachyOS para NixOS
+    /*
+      nix-proton-cachyos = {
+      url = "github:kimjongbing/nix-proton-cachyos";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    */
+
     # Tema do Plymouth Mac-Style com Logo Colorida do NixOS
     mac-style-plymouth = {
       url = "github:SergioRibera/s4rchiso-plymouth-theme";

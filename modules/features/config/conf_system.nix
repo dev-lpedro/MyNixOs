@@ -187,6 +187,30 @@
   };
 
   # ==========================================
+  # DESATIVA A TRAVA DE DEPENDÊNCIA DOS PORTAIS NO NIRI
+  # ==========================================
+  systemd.user.services.xdg-desktop-portal = {
+    overrideStrategy = "asDropin";
+    unitConfig = {
+      Requisite = lib.mkForce "";
+    };
+  };
+
+  systemd.user.services.xdg-desktop-portal-gnome = {
+    overrideStrategy = "asDropin";
+    unitConfig = {
+      Requisite = lib.mkForce "";
+    };
+  };
+
+  systemd.user.services.xdg-desktop-portal-gtk = {
+    overrideStrategy = "asDropin";
+    unitConfig = {
+      Requisite = lib.mkForce "";
+    };
+  };
+
+  # ==========================================
   # LIMPEZA AUTOMÁTICA DE GERAÇÕES / NIX STORE
   # ==========================================
   nix.gc = {
@@ -261,7 +285,7 @@
     devenv # Ferramenta para shells de desenvolvimento
     blueman # Gerenciador gráfico de dispositivos Bluetooth
     distrobox # Executa distros em contêineres isolados
-    podman # Motor de contêineres para o Distrobox
+    #podman # Motor de contêineres para o Distrobox
     (btop.override {cudaSupport = true;})
     mesa-demos
     pavucontrol

@@ -13,7 +13,7 @@
       [Desktop Entry]
       Name=Niri (Noctalia v4)
       Comment=Niri compositor com Noctalia Shell v4
-      Exec=env NOCTALIA_VER=v4 niri
+      Exec=env NOCTALIA_VER=v4 niri-session
       Type=Application
       DesktopNames=Niri
     '').overrideAttrs (_: {passthru.providedSessions = ["niri-v4"];}))
@@ -23,7 +23,7 @@
       [Desktop Entry]
       Name=Niri (Noctalia v5)
       Comment=Niri compositor com Noctalia Shell v5
-      Exec=env NOCTALIA_VER=v5 niri
+      Exec=env NOCTALIA_VER=v5 niri-session
       Type=Application
       DesktopNames=Niri
     '').overrideAttrs (_: {passthru.providedSessions = ["niri-v5"];}))

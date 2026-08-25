@@ -11,5 +11,5 @@ spawn-at-startup "spice-vdagent"
 spawn-at-startup "wl-paste" "--type" "text" "--watch" "cliphist" "store"
 spawn-at-startup "wl-paste" "--type" "image" "--watch" "cliphist" "store"
 
-spawn-at-startup "dbus-update-activation-environment" "--systemd" "QT_QPA_PLATFORMTHEME=kde" "XDG_CURRENT_DESKTOP=Niri"
+spawn-at-startup "dbus-update-activation-environment" "--systemd" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP"
 spawn-at-startup "systemctl" "--user" "restart" "import-environment" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP"
