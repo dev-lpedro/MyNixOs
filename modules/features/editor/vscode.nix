@@ -3,14 +3,19 @@
   config,
   inputs,
   ...
-}: {
-  # Instala o VSCodium e VS Code no sistema
-  environment.systemPackages = with pkgs; [
-    vscodium
-    vscode
-    nixd
-    alejandra
+}: let
+  system = pkgs.system;
+  exts = inputs.nix-vscode-extensions.extensions.${system};
+in {
+  environment.systemPackages = [
+    pkgs.vscodium.fhs
+    pkgs.ripgrep
+    pkgs.ripgrep-all
+    pkgs.nixd
+    pkgs.alejandra
   ];
+
+  programs.nix-ld.enable = true;
 
   # Mapeia as configurações do VS Code e VSCodium via Home Manager
   home-manager = {

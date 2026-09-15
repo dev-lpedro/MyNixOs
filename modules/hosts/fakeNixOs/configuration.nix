@@ -32,5 +32,14 @@
 
     #6. Vscode
     ../../features/editor/vscode.nix
+
+    #7. homelab
+    ../../features/homelab/suwayomi.nix
+    #../../features/homelab/komga.nix
+    #../../features/homelab/jellyfin.nix
+    #../../features/homelab/arr-stack.nix
+
+    #../../features/damx/damx.nix
+    ../../features/umbriel/umbriel.nix
   ];
 }

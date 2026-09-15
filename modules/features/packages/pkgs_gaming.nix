@@ -13,6 +13,7 @@
     gamemode
     nvtopPackages.nvidia
     gpu-screen-recorder
+    gpu-screen-recorder-ui
 
     protonup-qt
 
@@ -21,11 +22,18 @@
     #dolphin-emu
     #cemu
     gamescope
+
+    # Enable clipboard sharing
+    wl-clipboard
   ];
 
   # Ativa os daemons de suporte a jogos no NixOS
   programs.gamemode.enable = true;
   programs.gamescope.enable = true;
+
+  virtualisation.waydroid.enable = true;
+  # Newer kernel versions may need
+  virtualisation.waydroid.package = pkgs.waydroid-nftables;
 
   # Configuração do Steam com GE-Proton
   programs.steam = {

@@ -31,6 +31,9 @@
     gparted
 
     btrfs-assistant
+
+    sops
+    age
   ];
 
   # Instalação declarativa de fontes do sistema

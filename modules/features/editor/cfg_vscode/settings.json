@@ -31,5 +31,12 @@
             }
         }
     },
-    "git.autofetch": true
+    "git.autofetch": true,
+    "roo-cline.debug": false,
+    "roo-cline.allowedCommands": [
+        "git log",
+        "git diff",
+        "git show"
+    ],
+    "roo-cline.deniedCommands": []
 }

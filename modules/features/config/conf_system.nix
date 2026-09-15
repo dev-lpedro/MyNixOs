@@ -9,6 +9,9 @@
 }: {
   nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"]; # Define o caminho do repositório NixOS
 
+  #suporte a flatpaks
+  services.flatpak.enable = true;
+
   # ==========================================
   # VARIÁVEIS DE AMBIENTE E INTEGRAÇÃO DO NH (Nix Helper)
   # ==========================================
@@ -229,6 +232,11 @@
   };
   virtualisation.containers.registries.search = ["docker.io"];
 
+  # Sops
+  imports = [
+    inputs.sops-nix.nixosModules.sops
+  ];
+
   # ==========================================
   # PERMISSÕES DO BTOP PARA EXIBIR IGPU INTEL + DGPU NVIDIA
   # ==========================================
@@ -296,4 +304,21 @@
 
   # Ativa o suporte ao direnv no shell
   programs.direnv.enable = true;
+
+  systemd.user.services.blueman-applet.serviceConfig = {
+    Restart = "on-failure";
+    RestartSec = "1";
+  };
+
+  systemd.user.services."xdg-desktop-portal-gtk".serviceConfig = {
+    Restart = "on-failure";
+    RestartSec = "1";
+  };
+
+  systemd.user.services."app-@autostart" = {
+    serviceConfig = {
+      Restart = "on-failure";
+      RestartSec = "1";
+    };
+  };
 }

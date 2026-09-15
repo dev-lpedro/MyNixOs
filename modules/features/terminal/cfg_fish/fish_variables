@@ -3,6 +3,7 @@
 SETUVAR __fish_initialized:4300
 SETUVAR _tide_left_items:vi_mode\x1epwd\x1egit\x1enewline
 SETUVAR _tide_right_items:shlvl\x1econtext\x1etime\x1edirenv\x1ecmd_duration
+SETUVAR fish_user_paths:/home/leonardo/\x2elocal/bin
 SETUVAR tide_aws_bg_color:yellow
 SETUVAR tide_aws_color:brblack
 SETUVAR tide_aws_icon:\uf270

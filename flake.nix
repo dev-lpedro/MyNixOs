@@ -24,6 +24,17 @@
     # Canal principal de pacotes (NixOS Unstable)
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
+    # Repositório de extensões do VS Code / Open VSX
+    nix-vscode-extensions = {
+      url = "github:nix-community/nix-vscode-extensions";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    umbriel = {
+      url = "github:noctalia-dev/umbriel";
+      inputs.nixpkgs.follows = "nixpkgs"; # Faz usar o mesmo nixpkgs do seu sistema
+    };
+
     # Framework para organizar flakes de forma modular
     flake-parts.url = "github:hercules-ci/flake-parts";
 
@@ -73,6 +84,11 @@
     # Módulo de particionamento e formatação declarativa
     disko = {
       url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };

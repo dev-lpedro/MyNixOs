@@ -1,7 +1,11 @@
 # ==============================================================================
 # Configuração de Usuários do Sistema e Permissões de Grupos
 # ==============================================================================
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   # Habilita o shell Fish no nível do sistema operacional
   programs.fish.enable = true;
 
@@ -35,6 +39,10 @@
     xdg.userDirs = {
       enable = true;
       createDirectories = true;
+      setSessionVariables =
+        if lib.versionAtLeast config.home.stateVersion "26.05"
+        then false
+        else true;
     };
 
     # Preferir tema escuro nos portais XDG e GTK4
@@ -44,6 +52,9 @@
         gtk-theme = "adw-gtk3-dark";
       };
     };
+
+    xdg.configFile."gtk-3.0/gtk.css".enable = lib.mkForce false;
+    xdg.configFile."gtk-4.0/gtk.css".enable = lib.mkForce false;
 
     # Preferir tema escuro em apps GTK
     gtk = {
@@ -56,6 +67,10 @@
       };
 
       gtk3.extraConfig.gtk-application-prefer-dark-theme = 1;
+      gtk4.theme =
+        if lib.versionAtLeast config.home.stateVersion "26.05"
+        then null
+        else config.gtk.theme;
       gtk4.extraConfig.gtk-application-prefer-dark-theme = 1;
     };
 

@@ -1,0 +1,7 @@
+keys:
+  - &meu_pc age1uvujrgm5n5qmzrp4s03hhmmdtuwhl2z9tx6g7vdaqfegu5f8fvqq4uxv05
+creation_rules:
+  - path_regex: modules/features/homelab/.*\.yaml$
+    key_groups:
+    - age:
+      - *meu_pc

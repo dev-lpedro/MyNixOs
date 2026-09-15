@@ -20,7 +20,7 @@
 
     neovim
 
-    gearlever
+    #gearlever
 
     clonehero
 
@@ -48,7 +48,7 @@
 
     networkmanagerapplet
 
-    melonDS
+    melonds
 
     proton-vpn
 
@@ -59,8 +59,31 @@
     wireproxy
 
     moonlight-qt
+
+    pixelorama
+
+    fzf
+
+    osmium
+
+    arduino-ide
   ];
 
   services.tailscale.enable = true;
   services.sunshine.enable = true;
+
+  services.ollama = {
+    enable = true;
+    package = pkgs.ollama-cuda;
+  };
+
+  #specialisation.vbox.configuration = {
+  #  # Força o kernel padrão apenas nesta opção de boot
+  #  boot.kernelPackages = pkgs.lib.mkForce pkgs.linuxPackages;
+
+  # Configurações do VirtualBox
+  #  virtualisation.virtualbox.host.enable = true;
+  #  virtualisation.virtualbox.host.enableExtensionPack = true;
+  #  users.extraGroups.vboxusers.members = [ "leonardo" ];
+  #};
 }

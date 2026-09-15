@@ -3,7 +3,7 @@
     firefox
     obsidian
     qbittorrent
-    libreoffice-fresh
+    libreoffice
     equibop
   ];
 }
