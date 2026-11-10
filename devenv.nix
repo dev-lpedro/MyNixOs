@@ -12,6 +12,7 @@
   packages = [pkgs.git pkgs.git-lfs pkgs.alejandra];
 
   pre-commit.hooks.alejandra.enable = true;
+  pre-commit.hooks.gitleaks.enable = true;
 
   # https://devenv.sh/languages/
   # languages.rust.enable = true;

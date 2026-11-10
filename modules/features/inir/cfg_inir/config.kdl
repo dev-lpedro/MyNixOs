@@ -1,0 +1,18 @@
+// ==============================================================================
+// Config do Niri usada SÓ pela sessão "iNiR (Niri isolado)" no SDDM.
+// keybinds-inir.kdl e autostart-inir.kdl são CÓPIAS dos arquivos originais
+// em modules/features/niri/cfg_niri/cfg/, com as partes do Noctalia trocadas
+// pelas do iNiR. O resto (input/display/layout/regras/animação) não tem
+// nada a ver com Noctalia, então é incluído por referência direta — sem
+// duplicar nem tocar em modules/features/niri/.
+// ==============================================================================
+
+include "/home/leonardo/MyNixOs/modules/features/niri/cfg_niri/cfg/animation.kdl"
+include "/home/leonardo/MyNixOs/modules/features/niri/cfg_niri/cfg/input.kdl"
+include "/home/leonardo/MyNixOs/modules/features/niri/cfg_niri/cfg/display.kdl"
+include "/home/leonardo/MyNixOs/modules/features/niri/cfg_niri/cfg/layout.kdl"
+include "/home/leonardo/MyNixOs/modules/features/niri/cfg_niri/cfg/rules.kdl"
+include "/home/leonardo/MyNixOs/modules/features/niri/cfg_niri/cfg/misc.kdl"
+
+include "/home/leonardo/MyNixOs/modules/features/inir/cfg_inir/keybinds-inir.kdl"
+include "/home/leonardo/MyNixOs/modules/features/inir/cfg_inir/autostart-inir.kdl"

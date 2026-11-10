@@ -1,0 +1,18 @@
+// ────────────── Startup Applications (versão iNiR) ──────────────
+// Copiado de modules/features/niri/cfg_niri/cfg/autostart.kdl, trocando só
+// a linha que sobe o Noctalia pela que sobe o iNiR.
+
+spawn-at-startup "kded6"
+
+// Agente de clipboard do QEMU/SPICE para copiar e colar entre hospedeiro e VM
+spawn-at-startup "spice-vdagent"
+
+spawn-at-startup "wl-paste" "--type" "text" "--watch" "cliphist" "store"
+spawn-at-startup "wl-paste" "--type" "image" "--watch" "cliphist" "store"
+
+// PRIMEIRO exporta WAYLAND_DISPLAY/XDG_CURRENT_DESKTOP pro systemd --user
+spawn-at-startup "dbus-update-activation-environment" "--systemd" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP"
+spawn-at-startup "systemctl" "--user" "restart" "import-environment" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP"
+
+// SÓ DEPOIS sobe o iNiR via systemd (agora ele já enxerga o display certo)
+spawn-at-startup "systemctl" "--user" "start" "inir.service"

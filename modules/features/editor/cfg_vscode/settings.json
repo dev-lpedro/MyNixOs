@@ -38,5 +38,30 @@
         "git diff",
         "git show"
     ],
-    "roo-cline.deniedCommands": []
+    "roo-cline.deniedCommands": [],
+    "explorer.confirmDelete": false,
+    "js/ts.updateImportsOnFileMove.enabled": "always",
+    "workbench.editorAssociations": {
+        "{git,gitlens,chat-editing-snapshot-text-model,copilot,git-graph,git-graph-3}:/**/*.qrc": "default",
+        "*.qrc": "qt-core.qrcEditor"
+    },
+    "qt-core.additionalQtPaths": [
+        {
+            "name": "Qt-6.11.2-linux-g++-x86_64_from_PATH",
+            "path": "/run/current-system/sw/bin/qtpaths"
+        }
+    ],
+
+    // Configuração do LSP do Quickshell / QML (Requer extensão genérica de LSP)
+    "languageServers": {
+        "qml": {
+            "command": "qml-language-server",
+            "filetypes": ["qml"]
+        }
+    },
+    "qt-qml.doNotAskForQmllsDownload": true,
+    "explorer.confirmPasteNative": false,
+    "git.enableSmartCommit": true,
+    "git.confirmSync": false,
+    "redhat.telemetry.enabled": true
 }

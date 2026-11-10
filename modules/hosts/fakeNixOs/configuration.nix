@@ -40,6 +40,13 @@
     #../../features/homelab/arr-stack.nix
 
     #../../features/damx/damx.nix
-    ../../features/umbriel/umbriel.nix
+    #../../features/umbriel/umbriel.nix
+
+    #../../features/ryoku/ryoku.nix
+
+    #../../features/hyprland/hyprland.nix
+
+    #9. iNiR (shell Quickshell sobre sessão Niri isolada) — comente pra remover
+    #../../features/inir/inir.nix
   ];
 }

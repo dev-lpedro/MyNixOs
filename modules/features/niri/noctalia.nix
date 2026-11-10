@@ -32,7 +32,7 @@
       # Instala os executáveis de ambas as versões no $PATH do usuário
       home.packages = [
         # Noctalia v4 oficial do Nixpkgs (Comando: 'noctalia-shell')
-        pkgs.noctalia-shell
+        #pkgs.noctalia-shell
 
         # Noctalia v5 oficial vinda do Flake (Comando: 'noctalia')
         inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default

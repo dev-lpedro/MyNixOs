@@ -46,9 +46,43 @@
   # ==========================================
   # BOOTLOADER E KERNEL
   # ==========================================
-  boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot.enable = false;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.grub.enable = false;
+
+  # Limine: gerações antigas recolhidas, a mais nova (com a specialisation) expandida
+  boot.loader.limine = {
+    enable = true;
+    maxGenerations = 15;
+
+    style = {
+      wallpapers = ["${inputs.self}/Boot_Wallpaper/boot_wallpaper.jpg"];
+      wallpaperStyle = "stretched";
+      backdrop = "151515";
+
+      interface = {
+        resolution = "1920x1080";
+        brandingColor = "7ebae4";
+        helpColor = "5277c3";
+        helpColorBright = "7ebae4";
+      };
+
+      # --- Ajustes da Caixa de Terminal e Fonte ---
+      graphicalTerminal = {
+        # No Limine o formato é TTRRGGBB, onde TT é a TRANSPARÊNCIA (e não opacidade):
+        # "FF000000" deixa o fundo 100% invisível (sem retângulo).
+        # Se preferir manter o fundo semi-transparente escuro: use "80151515".
+        background = "FF000000";
+
+        # Margem externa do terminal: 0 faz a área ocupar a tela inteira
+        margin = 0;
+        marginGradient = 0;
+
+        # Escala da fonte (Largura x Altura). "2x2" dobra o tamanho padrão.
+        font.scale = "2x2";
+      };
+    };
+  };
 
   boot.kernelPackages = pkgs.linuxPackages_zen; #kernel zen
   boot.kernelModules = ["tcp_bbr"];
@@ -80,36 +114,18 @@
   # ==========================================
   # AMBIENTES DE TRABALHO E TELA DE LOGIN
   # ==========================================
-  services.desktopManager.plasma6.enable = true; # KDE Plasma 6 instalado para fallback
+  services.desktopManager.plasma6.enable = true; # KDE Plasma 6 (sessão do Vinicius)
 
-  services.displayManager = {
-    defaultSession = lib.mkForce "niri"; # Força o Niri como sessão padrão do SDDM
-    sddm = {
-      enable = true;
-      wayland = {
-        enable = true;
-        compositor = "kwin";
-      };
-      theme = "catppuccin-mocha-mauve";
-      settings = {
-        Theme = {
-          CursorTheme = "capitaine-cursors";
-          CursorSize = "24";
-        };
-      };
-    };
-  };
+  # GDM lembra a última sessão de cada usuário (leonardo = Niri, vinicius = Plasma).
+  # Os módulos do niri e do plasma6 definem cada um um defaultSession e entram em conflito;
+  # null anula os dois (e evita que o NixOS sobrescreva a sessão lembrada de cada usuário).
+  # Se der tela preta no login (NVIDIA híbrida), adicione: services.displayManager.gdm.wayland = false;
+  services.displayManager.defaultSession = lib.mkForce null;
+  services.displayManager.gdm.enable = true;
 
-  # Instala o tema Catppuccin, o cursor global e dependências do SDDM
+  # Instala o cursor global
   environment.systemPackages = with pkgs; [
     capitaine-cursors
-    (catppuccin-sddm.override {
-      flavor = "mocha";
-      accent = "mauve";
-      font = "Noto Sans";
-    })
-    kdePackages.qt5compat
-    kdePackages.qtsvg
   ];
 
   # Escalonador eBPF para o hardware real

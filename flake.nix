@@ -30,10 +30,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    umbriel = {
+    /*
+      umbriel = {
       url = "github:noctalia-dev/umbriel";
       inputs.nixpkgs.follows = "nixpkgs"; # Faz usar o mesmo nixpkgs do seu sistema
     };
+    */
 
     # Framework para organizar flakes de forma modular
     flake-parts.url = "github:hercules-ci/flake-parts";
@@ -43,6 +45,19 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    /*
+      ryoku = {
+      url = "github:aethctl/Ryoku-on-NixOS";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # iNiR — shell Quickshell para o Niri (github:snowarch/inir)
+    inir = {
+      url = "github:snowarch/inir";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    */
 
     # Flake do Compositor Niri Wayland
     /*
@@ -76,10 +91,12 @@
       url = "github:noctalia-dev/noctalia/cachix";
     };
 
-    # Noctalia v4 (Branch 'legacy-v4' para uso estável)
+    /*
+      # Noctalia v4 (Branch 'legacy-v4' para uso estável)
     noctalia-v4 = {
       url = "github:noctalia-dev/noctalia/legacy-v4";
     };
+    */
 
     # Módulo de particionamento e formatação declarativa
     disko = {

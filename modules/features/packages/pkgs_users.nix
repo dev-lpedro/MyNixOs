@@ -7,6 +7,7 @@
     ./pkgs_internet.nix
     ./pkgs_media.nix
     ./pkgs_gaming.nix
+    ./olympus.nix
   ];
 
   environment.systemPackages = with pkgs; [
@@ -26,7 +27,8 @@
 
     dusklight
 
-    olympus
+    #olympus
+    #olympus-unwrapped
 
     kdePackages.filelight
 
@@ -67,15 +69,30 @@
     osmium
 
     arduino-ide
+
+    blender
+
+    easyeffects
   ];
 
+  #virtualisation.virtualbox.host.enable = true;
+
+  programs.obs-studio.enable = true;
   services.tailscale.enable = true;
   services.sunshine.enable = true;
 
-  services.ollama = {
+  programs.appimage = {
     enable = true;
-    package = pkgs.ollama-cuda;
+    binfmt = true;
+    package = pkgs.appimage-run.override {
+      extraPkgs = pkgs: [pkgs.libepoxy pkgs.python3 pkgs.xdg-utils pkgs.SDL2 pkgs.udev];
+    };
   };
+
+  #services.ollama = {
+  #  enable = true;
+  #  package = pkgs.ollama-cuda;
+  #};
 
   #specialisation.vbox.configuration = {
   #  # Força o kernel padrão apenas nesta opção de boot

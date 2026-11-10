@@ -321,4 +321,32 @@
       RestartSec = "1";
     };
   };
+
+  specialisation.igpu-only.configuration = {
+    system.nixos.tags = ["igpu-only"];
+
+    # Define o driver de vídeo apenas para a integrada
+    services.xserver.videoDrivers = lib.mkForce ["modesetting"]; # ou "amdgpu" / "intel"
+
+    # Impede o kernel de carregar qualquer módulo da Nvidia
+    boot.blacklistedKernelModules = [
+      "nouveau"
+      "nvidia"
+      "nvidia_drm"
+      "nvidia_modeset"
+    ];
+
+    boot.extraModprobeConfig = ''
+      blacklist nouveau
+      options nouveau modeset=0
+    '';
+
+    # Desliga a energia da placa dedicada
+    services.udev.extraRules = ''
+      ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x03[0-9]*", ATTR{power/control}="auto", ATTR{remove}="1"
+      ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x040300", ATTR{power/control}="auto", ATTR{remove}="1"
+      ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x0c0330", ATTR{power/control}="auto", ATTR{remove}="1"
+      ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x0c8000", ATTR{power/control}="auto", ATTR{remove}="1"
+    '';
+  };
 }

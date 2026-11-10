@@ -2,7 +2,7 @@
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Miscellaneousspawn-sh-at-startup
 
 // Inicializa 'noctalia' (v5) ou 'noctalia-shell' (v4) de acordo com a escolha no SDDM
-spawn-sh-at-startup "if [ \"$NOCTALIA_VER\" = \"v5\" ]; then noctalia; else noctalia-shell; fi"
+spawn-at-startup "noctalia"
 spawn-at-startup "kded6"
 
 // Agente de clipboard do QEMU/SPICE para copiar e colar entre hospedeiro e VM

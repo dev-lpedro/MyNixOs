@@ -5,8 +5,9 @@
 }: let
   user = "leonardo";
   homelabDir = "/home/${user}/homelab";
-  mediaDir = "/home/${user}/Media";
-  downloadsDir = "/home/${user}/Downloads/Torrents";
+
+  # Toda a mídia do homelab fica centralizada aqui.
+  dataDir = "${homelabDir}/data";
 in {
   virtualisation.podman = {
     enable = true;
@@ -14,10 +15,18 @@ in {
     defaultNetwork.settings.dns_enabled = true;
   };
 
+  virtualisation.containers.policy = {
+    default = [
+      {
+        type = "insecureAcceptAnything";
+      }
+    ];
+  };
+
   virtualisation.oci-containers.backend = "podman";
 
   virtualisation.oci-containers.containers = {
-    # 1. CAMADA DE REDE E INDEXADORES BR
+    # 1. CAMADA DE REDE E INDEXADORES
     flaresolverr = {
       image = "ghcr.io/flaresolverr/flaresolverr:latest";
       ports = ["8191:8191"];
@@ -55,7 +64,7 @@ in {
       };
       volumes = [
         "${homelabDir}/qbittorrent:/config"
-        "${downloadsDir}:/downloads"
+        "${dataDir}:/data"
       ];
     };
 
@@ -92,8 +101,7 @@ in {
       };
       volumes = [
         "${homelabDir}/sonarr:/config"
-        "${mediaDir}:/data/media"
-        "${downloadsDir}:/downloads"
+        "${dataDir}:/data"
       ];
     };
 
@@ -107,8 +115,7 @@ in {
       };
       volumes = [
         "${homelabDir}/radarr:/config"
-        "${mediaDir}:/data/media"
-        "${downloadsDir}:/downloads"
+        "${dataDir}:/data"
       ];
     };
 
@@ -122,20 +129,26 @@ in {
       };
       volumes = [
         "${homelabDir}/bazarr:/config"
-        "${mediaDir}:/data/media"
+        "${dataDir}:/data"
       ];
     };
 
     # 4. STREAMING E PEDIDOS
-    #jellyfin = {
-    #  image = "linuxserver/jellyfin:latest";
-    #  ports = [ "8096:8096" ];
-    #  environment = { PUID = "1000"; PGID = "1000"; TZ = "America/Sao_Paulo"; };
-    #  volumes = [
-    #    "${homelabDir}/jellyfin:/config"
-    #    "${mediaDir}:/data/media"
-    #  ];
-    #};
+    # Jellyfin continua sendo o serviço nativo do NixOS.
+    #
+    # jellyfin = {
+    #   image = "linuxserver/jellyfin:latest";
+    #   ports = ["8096:8096"];
+    #   environment = {
+    #     PUID = "1000";
+    #     PGID = "1000";
+    #     TZ = "America/Sao_Paulo";
+    #   };
+    #   volumes = [
+    #     "${homelabDir}/jellyfin:/config"
+    #     "${dataDir}:/data"
+    #   ];
+    # };
 
     jellyseerr = {
       image = "fallenbagel/jellyseerr:latest";

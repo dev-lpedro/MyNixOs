@@ -9,13 +9,14 @@
   # Habilita o shell Fish no nível do sistema operacional
   programs.fish.enable = true;
 
-  # Declaração do usuário principal
+  # ============================================================================
+  # USUÁRIO PRINCIPAL: leonardo
+  # ============================================================================
   users.users.leonardo = {
     isNormalUser = true;
     description = "Leonardo";
-    initialPassword = "123"; #Senha temporaria, mude com passwd
+    initialPassword = "123"; # Senha temporaria, mude com passwd
 
-    # Grupos de permissões no hardware
     extraGroups = [
       "wheel" # Acesso ao sudo
       "networkmanager" # Permissão para gerenciar conexões Wi-Fi/Rede
@@ -23,13 +24,55 @@
       "audio" # Controle do servidor de áudio Pipewire e volume
       "input" # Acesso a touchpads, mouses e controles de jogos
       "gamemode" # Permissão para acionar otimizações em jogos
+      "dialout"
+      "tty"
+      "render"
     ];
 
-    # Define o Fish como o shell padrão do usuário
+    subUidRanges = [
+      {
+        startUid = 100000;
+        count = 65536;
+      }
+    ];
+
+    subGidRanges = [
+      {
+        startGid = 100000;
+        count = 65536;
+      }
+    ];
+
     shell = pkgs.fish;
   };
 
-  # Configurações do perfil do usuário gerenciadas pelo Home Manager
+  # ============================================================================
+  # USUÁRIO COMUM: vinicius (sem senha, sem root, usa Plasma)
+  # ============================================================================
+  users.users.vinicius = {
+    isNormalUser = true;
+    description = "Vinicius";
+    hashedPassword = ""; # sem senha (se o login recusar, troque por: password = "";)
+    extraGroups = [
+      "networkmanager" # trocar de Wi-Fi sem pedir senha de admin
+      # "video" # só descomente se brilho/câmera não funcionarem
+      # "audio" # só descomente se algum dispositivo de áudio não funcionar
+    ];
+    shell = pkgs.bashInteractive; # bash: muito mais fácil achar tutoriais
+  };
+
+  # Senha vazia aceita SÓ no login gráfico (GDM) e na tela de bloqueio do Plasma.
+  # TTY, su, sudo e SSH continuam recusando.
+  security.pam.services.gdm-password.allowNullPassword = true;
+  security.pam.services.kde.allowNullPassword = true;
+
+  # Endurecimento
+  nix.settings.allowed-users = ["@wheel" "vinicius"]; # só o grupo wheel usa o nix daemon
+  security.sudo.execWheelOnly = true; # sudo só executável por quem é wheel
+
+  # ============================================================================
+  # HOME MANAGER: leonardo
+  # ============================================================================
   home-manager.users.leonardo = {
     config,
     pkgs,
@@ -74,11 +117,41 @@
       gtk4.extraConfig.gtk-application-prefer-dark-theme = 1;
     };
 
-    #Preferir tema escuro em apps qt
+    # Preferir tema escuro em apps qt
     qt = {
       enable = true;
       platformTheme.name = "kde";
       style.name = "breeze";
     };
+  };
+
+  # ============================================================================
+  # HOME MANAGER: vinicius (Plasma padrão, foco em simplicidade)
+  # ============================================================================
+  home-manager.users.vinicius = {
+    config,
+    pkgs,
+    ...
+  }: {
+    home.stateVersion = "24.11"; # mesmo do leonardo e do sistema
+
+    # Pastas em português
+    xdg.userDirs = {
+      enable = true;
+      createDirectories = true;
+      desktop = "${config.home.homeDirectory}/Área de Trabalho";
+      documents = "${config.home.homeDirectory}/Documentos";
+      download = "${config.home.homeDirectory}/Downloads";
+      music = "${config.home.homeDirectory}/Música";
+      pictures = "${config.home.homeDirectory}/Imagens";
+      videos = "${config.home.homeDirectory}/Vídeos";
+    };
+
+    # Programas do dia a dia
+    home.packages = with pkgs; [
+      firefox
+      libreoffice-qt
+      vlc
+    ];
   };
 }

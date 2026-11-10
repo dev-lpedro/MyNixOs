@@ -52,5 +52,10 @@
 
     # Fallback de texto global
     noto-fonts
+
+    ntfs3g
+    ntfsprogs
+
+    gnome-disk-utility
   ];
 }
